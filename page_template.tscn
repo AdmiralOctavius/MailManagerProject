@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhvniwesop6ir"]
+
+[ext_resource type="Script" uid="uid://ciev61vpun3r3" path="res://window.gd" id="1_dghux"]
+[ext_resource type="Texture2D" uid="uid://1wnumqec4qtk" path="res://testletter.png" id="2_m7fwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_88gup"]
+size = Vector2(64, 128)
+
+[node name="PageTemplate" type="Node2D"]
+script = ExtResource("1_dghux")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_m7fwt")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_88gup")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_window_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_window_mouse_exited"]
