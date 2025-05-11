@@ -6,11 +6,14 @@
 
 [node name="Room" type="Node2D"]
 
-[node name="Printer" type="Node2D" parent="." node_paths=PackedStringArray("scene_root")]
-position = Vector2(838, 551)
+[node name="Printer" type="Node2D" parent="." node_paths=PackedStringArray("scene_root", "printerEnd", "printerStart")]
+z_index = 2
+position = Vector2(572, 572)
 script = ExtResource("2_4o3f6")
 spawn_scene = ExtResource("1_88gup")
 scene_root = NodePath("..")
+printerEnd = NodePath("SpawnerEndPoint")
+printerStart = NodePath("SpawnerStartPoint")
 
 [node name="SpawnerEndPoint" type="Node2D" parent="Printer"]
 position = Vector2(0, -142)
