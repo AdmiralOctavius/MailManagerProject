@@ -3,7 +3,11 @@ extends Node2D
 var mouseOver : bool
 var mousePos : Vector2 = Vector2.ZERO
 var difference :Vector2
+@export var readyToShred : bool
 
+func setShred(shredTime: bool) -> void:
+	readyToShred = shredTime
+	
 func _on_window_mouse_entered() -> void:
 	mouseOver = true
 

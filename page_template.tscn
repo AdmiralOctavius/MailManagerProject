@@ -12,10 +12,10 @@ script = ExtResource("1_dghux")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_m7fwt")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="PageShape" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PageShape"]
 shape = SubResource("RectangleShape2D_88gup")
 
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_window_mouse_entered"]
-[connection signal="mouse_exited" from="Area2D" to="." method="_on_window_mouse_exited"]
+[connection signal="mouse_entered" from="PageShape" to="." method="_on_window_mouse_entered"]
+[connection signal="mouse_exited" from="PageShape" to="." method="_on_window_mouse_exited"]

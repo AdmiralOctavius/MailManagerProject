@@ -1,19 +1,31 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlx1v37kb8135"]
+[gd_scene load_steps=11 format=3 uid="uid://dlx1v37kb8135"]
 
 [ext_resource type="PackedScene" uid="uid://dhvniwesop6ir" path="res://page_template.tscn" id="1_88gup"]
 [ext_resource type="Script" uid="uid://4uba4teqpayp" path="res://printer.gd" id="2_4o3f6"]
 [ext_resource type="Texture2D" uid="uid://dskpuhwit1nob" path="res://PrinterDraft.png" id="2_bisa2"]
+[ext_resource type="AudioStream" uid="uid://dfq1q05bpwbwe" path="res://474235__skibkamusic__writing_print_4.wav" id="4_01y1d"]
+[ext_resource type="Texture2D" uid="uid://jke1iu08uqnv" path="res://ShredderDraftFore.png" id="4_ka7wq"]
+[ext_resource type="Script" uid="uid://ce1vavgnyw3ci" path="res://shredder.gd" id="4_x5k2b"]
+[ext_resource type="AudioStream" uid="uid://bscjtjo3u6ifg" path="res://712230__khwez__typewriter-ending-bell.mp3" id="5_42v8c"]
+[ext_resource type="Texture2D" uid="uid://b8vkwpsxh4gqg" path="res://ShredderDraftRear.png" id="5_x5k2b"]
+[ext_resource type="AudioStream" uid="uid://dvw2vmo7jjmlu" path="res://139089__mxsmanic__crosscut-paper-shredder.wav" id="9_42v8c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8cv3p"]
+size = Vector2(400, 72)
 
 [node name="Room" type="Node2D"]
 
-[node name="Printer" type="Node2D" parent="." node_paths=PackedStringArray("scene_root", "printerEnd", "printerStart")]
+[node name="Printer" type="Node2D" parent="." node_paths=PackedStringArray("scene_root", "printerEnd", "printerStart", "printerSound", "printerSoundEnd")]
 z_index = 2
-position = Vector2(572, 572)
+position = Vector2(826, 564)
 script = ExtResource("2_4o3f6")
 spawn_scene = ExtResource("1_88gup")
 scene_root = NodePath("..")
 printerEnd = NodePath("SpawnerEndPoint")
 printerStart = NodePath("SpawnerStartPoint")
+printerSound = NodePath("PrintSound")
+printerSoundEnd = NodePath("PrintDoneSound")
+SPEED = 100
 
 [node name="SpawnerEndPoint" type="Node2D" parent="Printer"]
 position = Vector2(0, -142)
@@ -22,3 +34,33 @@ position = Vector2(0, -142)
 
 [node name="Sprite2D" type="Sprite2D" parent="Printer"]
 texture = ExtResource("2_bisa2")
+
+[node name="PrintSound" type="AudioStreamPlayer" parent="Printer"]
+stream = ExtResource("4_01y1d")
+
+[node name="PrintDoneSound" type="AudioStreamPlayer" parent="Printer"]
+stream = ExtResource("5_42v8c")
+
+[node name="Shredder" type="Node2D" parent="." node_paths=PackedStringArray("shredderSound")]
+position = Vector2(301, 648)
+script = ExtResource("4_x5k2b")
+shredderSound = NodePath("AudioStreamPlayer")
+
+[node name="PrinterFore" type="Sprite2D" parent="Shredder"]
+z_index = 2
+texture = ExtResource("4_ka7wq")
+
+[node name="ShredderEntrance" type="Area2D" parent="Shredder"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shredder/ShredderEntrance"]
+position = Vector2(10, -26)
+shape = SubResource("RectangleShape2D_8cv3p")
+
+[node name="PrinterRear" type="Sprite2D" parent="Shredder"]
+position = Vector2(0, -78)
+texture = ExtResource("5_x5k2b")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Shredder"]
+stream = ExtResource("9_42v8c")
+
+[connection signal="area_entered" from="Shredder/ShredderEntrance" to="Shredder" method="_on_Document_Entered"]
