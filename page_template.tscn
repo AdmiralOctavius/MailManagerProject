@@ -4,18 +4,32 @@
 [ext_resource type="Texture2D" uid="uid://1wnumqec4qtk" path="res://testletter.png" id="2_m7fwt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_88gup"]
-size = Vector2(64, 128)
+size = Vector2(156, 248)
 
-[node name="PageTemplate" type="Node2D"]
+[node name="CharacterBody2D" type="CharacterBody2D"]
+input_pickable = true
 script = ExtResource("1_dghux")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PageTemplate" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="PageTemplate"]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(46, 60)
+scale = Vector2(2.4375, 1.92188)
 texture = ExtResource("2_m7fwt")
 
 [node name="PageShape" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PageShape"]
+[node name="DeleteZone" type="CollisionShape2D" parent="PageShape"]
+position = Vector2(46, 60)
 shape = SubResource("RectangleShape2D_88gup")
 
-[connection signal="mouse_entered" from="PageShape" to="." method="_on_window_mouse_entered"]
-[connection signal="mouse_exited" from="PageShape" to="." method="_on_window_mouse_exited"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(46, 60)
+shape = SubResource("RectangleShape2D_88gup")
+
+[connection signal="dragsignal" from="." to="." method="_on_dragsignal"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="PageShape" to="PageTemplate" method="_on_window_mouse_entered"]
+[connection signal="mouse_exited" from="PageShape" to="PageTemplate" method="_on_window_mouse_exited"]

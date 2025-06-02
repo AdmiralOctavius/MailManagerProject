@@ -25,6 +25,7 @@ func get_input():
 func printDocument(_spawn_scene := spawn_scene) -> void:
 	var page := _spawn_scene.instantiate() as Node2D
 	page.call("setShred",true)
+	page.call("isMovable",false)
 	scene_root.add_child(page)
 	
 	page.global_position = printerStart.global_position
@@ -49,6 +50,7 @@ func _process(delta: float) -> void:
 			pagePrinting = false
 			printerSound.stop()
 			printerSoundEnd.play()
+			lastPage.call("isMovable",true)
 
 func set_destination(new_destination):
 	destination = new_destination.global_position
